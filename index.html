@@ -7,13 +7,28 @@
         <meta name="description" content="This is a todolist using javascript for functionalities.">
         <title>Todo List</title>
         <link rel="stylesheet" href="styles.css">
+        <link href="./assets/fontawesome/css/all.css" rel="stylesheet" type="text/css">
     </head>
     <body>
 
         <main>
-            This is the main content
-        </main>
+            <article class="item__container">
+                <input type="text" name="newtask" id="newtask" class="item__container--input" placeholder="Add a new task" >
+                <button type="button" id="newtaskBtn"  class="item__container--button"><i class="fa-solid fa-plus"></i></button>
+                <!-- <input type="text" name="todoItem" id="todoItem" class="todoItems">
+                <button type="button" class="addItem">+</button> -->
+            </article>
 
+            <article id="taskBox">
+                <!-- Task heading -->
+                <h3 id="taskHeading"></h3>
+
+                <!-- Display Tasks -->
+                <ul id="displayTask" class="displayTask"></ul>
+            </article>
+            
+        </main>
+    
         <!-- The defer attribute keeps the javascript file from loading until the webpage has finished rendering(displaying) -->
         <script src="script.js" defer></script>
     </body>
