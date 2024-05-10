@@ -22,7 +22,7 @@ addNewTask.addEventListener("click", () => {
     console.log(newTask)
 
     // check if the newTask is not empty 
-    if (newTask !== "") {
+    if (newTask.trim() !== "") {
         // add the task to the array.
         tasks.push(newTask)
         // checkif it is stored in the array.
@@ -54,8 +54,14 @@ addNewTask.addEventListener("click", () => {
 
         // clear input field for new task 
         document.getElementById("newtask").value = "";
-        
-        }
-})
 
+        // enable the button.
+        addNewTask.removeAttribute("disabled")
+    }
+    else {
+        // if the input field is empty disable the button
+        addNewTask.setAttribute("disabled", "true")
+    }
+})
+// need to find a way to store the tasks locally so that even if the user refreshes the page, it doesn't empty the array.
     

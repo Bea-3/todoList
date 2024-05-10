@@ -60,6 +60,9 @@ main{
         /* background-image: url(./assets/icons/plusicon.svg); */
     }
 }
+.item__container--button:hover {
+    background-color: #3E1671;
+}
 
 @media (max-width: 760px) {
     main {
