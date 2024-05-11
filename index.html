@@ -12,12 +12,12 @@
     <body>
 
         <main>
-            <article class="item__container">
+            <form class="item__container">
                 <input type="text" name="newtask" id="newtask" class="item__container--input" placeholder="Add a new task" >
                 <button type="button" id="newtaskBtn"  class="item__container--button"><i class="fa-solid fa-plus"></i></button>
                 <!-- <input type="text" name="todoItem" id="todoItem" class="todoItems">
                 <button type="button" class="addItem">+</button> -->
-            </article>
+                </form>
 
             <article id="taskBox">
                 <!-- Task heading -->
@@ -25,6 +25,10 @@
 
                 <!-- Display Tasks -->
                 <ul id="displayTask" class="displayTask"></ul>
+
+                <!-- Display Done Tasks -->
+                <h3 id="doneHeading"></h3>
+                <ul id="doneTasks"></ul>
             </article>
             
         </main>

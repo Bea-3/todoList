@@ -1,67 +1,121 @@
-// The functionality
-// On click of the plus button, the content of the input field is displayed in a box below the input box titled - Tasks 
-// The items are basically cards that have two functions - check done & delete
-// Update the number of the tasks (len of the array) display on the Task heading.
-// On click of the check button, a Done box displays. 
-// A return button takes the list item back to tasks. and removes it from done box.
-
 // Adding tasks using Arrays
 let tasks = [];
 
-// Get variables for the button and input field
-// const newTask = document.getElementById("newtask")
-// newTask.addEventListener("keypress", () => {
-//     console.log(newTask.value)
-// })
-
-
+// button id
 const addNewTask = document.getElementById("newtaskBtn");
+
+const displayTasks = document.getElementById("displayTask");
+
+const doneTasks = document.getElementById("doneTasks");
+
 addNewTask.addEventListener("click", () => {
     // get the content of the input field and store in a const variable.
-    const newTask = document.getElementById("newtask").value;
-    console.log(newTask)
+    const newTaskInput = document.getElementById("newtask");
+    const newTask = newTaskInput.value.trim();
 
-    // check if the newTask is not empty 
-    if (newTask.trim() !== "") {
+     // check if the newTask is not empty 
+     if (newTask !== "") {
         // add the task to the array.
-        tasks.push(newTask)
+        tasks.push({"text" : newTask, "done" : false});
         // checkif it is stored in the array.
-        console.log(tasks)
+        console.log(tasks);
 
-        //create an li element and append it to the ul in the HTML.
-        const newTaskItem  = document.createElement("li")
-        newTaskItem.classList.add("task-item"); // add css class to style later
-        // Create text content for the Li 
-        const taskText = document.createElement("span");
-        taskText.textContent = newTask;
-        newTaskItem.appendChild(taskText);
-
-        // Add check icons and delete icon, append them to the new taskitem
-        const checkIcon = document.createElement("i")
-        checkIcon.classList.add("fa-solid", "fa-check", "fa")
-        newTaskItem.appendChild(checkIcon);
-
-        const deleteIcon = document.createElement("i")
-        deleteIcon.classList.add("fa-solid","fa-trash", "fa")
-        newTaskItem.appendChild(deleteIcon);
-
-        const displayTasks = document.getElementById("displayTask");
-        displayTasks.appendChild(newTaskItem)
-
-        // Update the inner HTML of the heading with the number of items in the array
-        const taskHeading = document.getElementById("taskHeading")
-        taskHeading.innerHTML = `Tasks - ${tasks.length}`
-
-        // clear input field for new task 
-        document.getElementById("newtask").value = "";
-
+        taskList(newTask);
+        console.log(newTask)
+        updateTaskCount();
         // enable the button.
         addNewTask.removeAttribute("disabled")
+    } else {
+        // Disable button if input is empty
+        addNewTask.setAttribute("disabled", "true");
     }
-    else {
-        // if the input field is empty disable the button
-        addNewTask.setAttribute("disabled", "true")
-    }
+    // clear input field for new task 
+    document.getElementById("newtask").value = "";
 })
-// need to find a way to store the tasks locally so that even if the user refreshes the page, it doesn't empty the array.
+
+// Create the new element to display the tasks
+function taskList (task) {
+    //create an li element and append it to the ul in the HTML.
+    const newTaskItem  = document.createElement("li")
+    newTaskItem.classList.add("task-item"); // add css class to style later
+    // Create text content for the Li 
+    const taskText = document.createElement("span");
+    taskText.textContent = task;
+    console.log(task)
+    taskText.classList.add("task-text");
+    newTaskItem.appendChild(taskText);
+
+    const checkIcon = document.createElement("i");
+    checkIcon.classList.add("fa-solid", "fa-check", "fa", "checkBtn");
+    checkIcon.addEventListener("click", () => {
+        const taskIndex = tasks.findIndex(item => item.text === task);
+        tasks[taskIndex].done = true;
+        renderTasks();
+    });
+    newTaskItem.appendChild(checkIcon);
+
+    const deleteIcon = document.createElement("i")
+    deleteIcon.classList.add("fa-solid","fa-trash", "fa", "deleteBtn")
+    deleteIcon.addEventListener("click", () => {
+        const taskIndex = tasks.findIndex(item => item.text === task);
+        tasks.splice(taskIndex, 1);
+        renderTasks();
+    });
+    newTaskItem.appendChild(deleteIcon);
     
+    displayTasks.appendChild(newTaskItem);
+}
+
+// render the tasks in the doneTasks if it is done or in the display if false
+function renderTasks(){
+    // Clear existing tasks
+    displayTasks.innerHTML = "";
+    doneTasks.innerHTML = "";
+
+    tasks.forEach(task => {
+        if (!task.done) {
+            taskList(task.text);
+        } else {
+            renderDoneTask(task.text);
+        }
+    });
+
+    updateTaskCount();
+}
+
+function renderDoneTask(task){
+    const doneItem = document.createElement("li");
+    doneItem.classList.add("done-list");
+    doneItem.innerHTML = `<span>${task}</span><i class="fa-solid fa-rotate-left returnBtn"></i>`;
+    doneTasks.appendChild(doneItem);
+
+    const returnIcon = doneItem.querySelector(".returnBtn");
+    returnIcon.addEventListener("click", () => {
+        const taskIndex = tasks.findIndex(item => item.text === task);
+        tasks[taskIndex].done = false;
+        renderTasks();
+    });
+}
+
+function updateTaskCount(){
+    const taskHeading = document.getElementById("taskHeading");
+    const pendingTasksCount = tasks.filter(task => !task.done).length;
+    const doneHeading = document.getElementById("doneHeading");
+    const doneTasksCount = tasks.filter(task => task.done).length;
+
+    if (pendingTasksCount > 0) {
+        taskHeading.innerHTML = `Tasks - ${pendingTasksCount}`;
+        taskHeading.style.display = "block";
+    } else {
+        taskHeading.style.display = "none";
+    }
+
+    if (doneTasksCount > 0) {
+        doneHeading.innerHTML = `Done - ${doneTasksCount}`;
+        doneHeading.style.display = "block";
+    } else {
+        doneHeading.style.display = "none";
+    }
+}
+
+renderTasks();
