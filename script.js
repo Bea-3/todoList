@@ -102,7 +102,7 @@ function updateTaskCount(){
     const pendingTasksCount = tasks.filter(task => !task.done).length;
     const doneHeading = document.getElementById("doneHeading");
     const doneTasksCount = tasks.filter(task => task.done).length;
-
+    
     if (pendingTasksCount > 0) {
         taskHeading.innerHTML = `Tasks - ${pendingTasksCount}`;
         taskHeading.style.display = "block";
