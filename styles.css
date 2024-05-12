@@ -1,7 +1,6 @@
 /* apply google font here. */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
-/* Pending styles. Done Task display. color,etc */
 *{
     box-sizing: border-box;
   }
@@ -9,35 +8,28 @@
     list-style: none;
   }
   body{
-    overflow: hidden;
+    overflow-y: smooth;
+    overflow-x: hidden;
     background-color: #0D0714;
-    font-family: "Poppins", sans-serif;
-    font-weight: 400;
+    font-family: "Rubik", "Poppins", sans-serif;
+    font-weight: 300;
     font-style: normal;
   }
   main{
     /* border: 1px solid white; */
-    width: 40%;
-    min-height: 50vh;
+    width: 500px;
+    min-height: 100vh;
+    scroll-behavior: smooth;
     margin:30px auto;
+    padding-top: 20px;
   }
-  
-  /* regular css */
-  /* .todoItems {
-    border: 1px solid green;
-    width:80%;
-  }
-  .addItem {
-    border: 1px solid grey;
-    width:7%;
-  } */
   
   /* Trying css nesting  */
   .item__container {
     /* border: 1px solid pink; */
     margin: 30px 0px;
     display: flex;
-    gap:10px;
+    gap:8px;
     padding:10px 0;
   
     & input {
@@ -45,9 +37,14 @@
         border-radius: 9px;
         padding: 10px;
         width:89%;
+        height: 40px;
         background-color: inherit;
         color: #9E78CF;
-       
+
+      
+        /* & input:focus {
+          border-color: aliceblue;
+        } */
     }
     /* The color is basically the same as the default */
     /* & input::placeholder {
@@ -59,7 +56,7 @@
         border:none;
         border-radius: 9px;
         padding:5px;
-        width:8%;
+        width:9%;
         color: white;
         font-size: large;
         /* background-image: url(./assets/icons/plusicon.svg); */
@@ -81,7 +78,7 @@
     padding: 10px 0;
     display: flex;
     flex-direction: column;
-    gap:12px;
+    gap:15px;
   
   }
   .task-item {
@@ -107,18 +104,30 @@
   /* styling the task Heading */
   #taskHeading, #doneHeading {
     color: whitesmoke;
+    font-weight: 400;
+  }
+  #doneTasks {
+    /* border:1px solid white; */
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap:15px;
   }
   .done-list {
     border:1px solid #15101C;
     background-color: #15101C;
-    border-radius: 10px;
-    color:greenyellow;
-    text-decoration: line-through;
-    padding: 20px 8px 20px 15px;
+    border-radius: 10px;    
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
   }
-  .task-count {
-    margin-top: 20px;
-    font-size: 1.2rem;
-    display: none;
+  .done-list span {
+    color:#78CFB0;
+    text-decoration: line-through;
+  }
+  .returnBtn {
+    color:#9E78CF;
+    
   }
 

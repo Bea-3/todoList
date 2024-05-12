@@ -1,11 +1,19 @@
+// The functionality
+// On click of the plus button, the content of the input field is displayed in a box below the input box titled - Tasks 
+// The items are basically cards that have two functions - check done & delete
+// Update the number of the tasks (len of the array) display on the Task heading.
+// On click of the check button, a Done box displays. 
+// A return button takes the list item back to tasks. and removes it from done box.
+// use array methods index of, filter, for each
+
 // Adding tasks using Arrays
 let tasks = [];
 
 // button id
 const addNewTask = document.getElementById("newtaskBtn");
-
+// display tasks in ul
 const displayTasks = document.getElementById("displayTask");
-
+// done tasks display in a new ul
 const doneTasks = document.getElementById("doneTasks");
 
 addNewTask.addEventListener("click", () => {
@@ -22,12 +30,15 @@ addNewTask.addEventListener("click", () => {
 
         taskList(newTask);
         console.log(newTask)
+
         updateTaskCount();
+
         // enable the button.
         addNewTask.removeAttribute("disabled")
     } else {
         // Disable button if input is empty
         addNewTask.setAttribute("disabled", "true");
+        addNewTask.removeAttribute("disabled")
     }
     // clear input field for new task 
     document.getElementById("newtask").value = "";
@@ -97,6 +108,7 @@ function renderDoneTask(task){
     });
 }
 
+// using filter because it returns the result of the filter as a new array after sorting through the array.
 function updateTaskCount(){
     const taskHeading = document.getElementById("taskHeading");
     const pendingTasksCount = tasks.filter(task => !task.done).length;
